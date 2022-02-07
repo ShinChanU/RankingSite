@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const SearchForm = () => {
   const onClick = () => {
-    axios.get('/api/data')
+    axios.get('api/data')
     .then((res) => {
       console.log("Success");
     })
