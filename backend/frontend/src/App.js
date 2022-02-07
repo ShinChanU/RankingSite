@@ -1,23 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import SearchForm from './components/SearchForm';
+import SearchList from './components/SearchList';
+import PuppeTest from './components/PuppeTest';
+// import { Puppeteer } from 'puppeteer';
+
+
 
 function App() {
+//   (async() => {
+//     console.log("Test");
+// })();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PuppeTest />
+      <SearchForm />
+      <SearchList />
     </div>
   );
 }

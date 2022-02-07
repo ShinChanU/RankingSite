@@ -1,20 +1,50 @@
 const Koa = require('koa');
-const cors = require('cors');
+const cors = require('@koa/cors');
+const Router = require('@koa/router');
+// const puppeteer = require('puppeteer');
+// const test = require('./api/test');
+// const api = require('./api');
 // const cheerio = require('cheerio');
 // const axios = require('axios');
 
 const app = new Koa();
+const router = new Router();
 const port = 8080;
 
-app.use((ctx) => {
-  console.log("test success");
-  ctx.body = "<h1>테스트</h1>";
+app.use(cors());
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+// router.use('/api', api.routes());
+
+router.get('/', (ctx, next) => {
+  ctx.body = '홈';  
 });
 
-app.use(cors());
+router.get('/api/data', (ctx, next) => {
+  ctx.body = {
+    greeting: "Hello World"
+  }  
+})
+
+
+// app.use("/api/data", (req, res) => {
+//   res.json({
+//     greeting: "Hello World"
+//   });
+// })
+
 app.listen(port, () => {
   console.log('listen to port 8080', '서버 가동 중');
 });
+
+// app.use("/api/data", (req, res) => {
+
+//   res.json({
+//     greeting: "Hello World"
+//   });
+// })
 
 // app.use("/api/data", (req, res) => {
 //   res.json({
