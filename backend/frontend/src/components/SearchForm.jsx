@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { $CombinedState } from 'redux';
 
 const SearchForm = () => {
   const onClick = () => {
