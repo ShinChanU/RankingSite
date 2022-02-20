@@ -25,68 +25,50 @@ const printConsole = async (content) => {
   // console.log(listItems);
 };
 
-api.get('/data', (ctx, next) => {
+api.get('/data', async (ctx, next) => {
   // ctx.body = 'GET ' + ctx.request.path;
   ctx.body = {
     test: 'Asd',
   };
 
   (async () => {
-    const browser = await puppeteer.launch({
-      headless: false,
-    });
-
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.setViewport({
-      width: 800,
-      height: 600,
+    await page.goto('https://www.statshow.com/www/google.com/');
+    const pageData = await page.evaluate(() => {
+      return {
+        html: document.documentElement.innerHTML,
+      };
     });
-    await page.goto('https://www.statshow.com/www/naver.com');
 
-    let data = await page.$('.worth_left_box');
-    let evalData = await page.evaluate((element) => {
-      return element.textContent;
-    }, data);
-    console.log(evalData);
-
-    // let ehList = await page.$$('.worth_left_box');
-    // console.log(ehList[0].childNodes);
-    // for (let i = 0; i < ehList.length; i++) {
-    //   let traffic = await ehList[i].$eval(`#box_${i + 1}`, (el) => {
-    //     return el.innerText;
-    //   });
-    //   console.log(traffic);
-    // }
-    // // console.log(ehList);
-    // ehList.map(async (eh, i) => {
-    //   let index = i + 1;
-    //   console.log(index);
-    //   let traffic = await eh.$eval(`#box_${index}`, (el) => {
-    //     return el.innerText;
-    //   });
-
-    //   console.log(traffic);
-    // });
-
-    // for (let eh of ehList) {
-    //   let traffic = await eh.$eval('#box_1', (el) => {
-    //     return el.innerText;
-    //   });
-    //   console.log(traffic);
-    // }
-
-    // box_1 : daily, box_2 : monthly, box_3 : yearly
-    // #box_1 > span:nth-child(4) : daily PageViews
-    // #box_1 > span:nth-child(6) : daily Visitors
-    // #box_1 > span:nth-child(8) : daily Ads Revenue
-
-    // #box_2 > span:nth-child(4) : monthly PageViews
-    // #box_2 > span:nth-child(6) : monthly Visitors
-    // #box_2 > span:nth-child(8) : monthly Ads Revenue
-
-    // #box_3 > span:nth-child(4) : yearly PageViews
-    // #box_3 > span:nth-child(6) : yearly Visitors
-    // #box_3 > span:nth-child(8) : yearly Ads Revenue
+    const $ = cheerio.load(pageData.html);
+    let data = {
+      // 초기 data
+      Daily: {
+        pageViews: '',
+        visitors: '',
+      },
+      Monthly: {
+        pageViews: '',
+        visitors: '',
+      },
+      Yearly: {
+        pageViews: '',
+        visitors: '',
+      },
+    };
+    const periods = ['Daily', 'Monthly', 'Yearly'];
+    const divisions = ['pageViews', 'visitors'];
+    $('.worth_left_box div').each(function (index) {
+      if (index >= 4) {
+        let key = periods[index - 4];
+        let arr = $(this).text().split(`${key}`);
+        for (let i = 1; i < 3; i++) {
+          data[key][divisions[i - 1]] = arr[i].split(': ')[1]; // data에 데이터 입력 부분
+        }
+      }
+    });
+    console.log(data);
 
     // const content = await page.content();
 
@@ -99,9 +81,14 @@ api.get('/data', (ctx, next) => {
 module.exports = api;
 
 // https://www.statshow.com/
+
 // 0214
 // reference:  https://kb.objectrocket.com/mongo-db/how-to-create-a-web-scraper-with-mongoose-nodejs-axios-and-cheerio-part-2-221
 // 현재고민..
 // async await 이슈.. 에러 콘솔로그 해결.. 위의 코드를 참고했던 블로그 부터확인
 // $.(선택자) 로 받아와서 .each 사용인데 jQuery 를 꼭 사용해야하느지..
 // $이 잘 작동하는지도 의문..
+
+// 0220
+// data에 원하는 데이터를 담는 것에 성공함 이 데이터들을 DB에 저장해서 가공해서 사용하면 좋을 듯.
+// 주소도 여러개를 사용할 수 있게 리팩토링 필요
