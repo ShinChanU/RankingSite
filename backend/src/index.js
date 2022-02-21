@@ -11,8 +11,8 @@ app.use(cors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-router.get('/', (ctx, next) => {
-  ctx.body = '홈';  
+router.get('/', (ctx) => {
+  ctx.body = '홈';
 });
 
 router.use('/api', api.routes());

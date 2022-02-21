@@ -1,16 +1,16 @@
-// import logo from './logo.svg';
-import './App.css';
-import SearchForm from './components/SearchForm';
-import SearchList from './components/SearchList';
+import React from 'react';
+import axios from 'axios';
 
 function App() {
-  //   (async() => {
-  //     console.log("Test");
-  // })();
+  const onClick = () => {
+    axios.get('api/data').then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
-    <div className="App">
-      <SearchForm />
-      <SearchList />
+    <div>
+      <button onClick={onClick}>search</button>
     </div>
   );
 }

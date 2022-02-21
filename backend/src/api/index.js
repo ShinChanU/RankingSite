@@ -4,31 +4,31 @@ const cheerio = require('cheerio');
 
 const api = new Router();
 
-const printConsole = async (content) => {
-  const $ = cheerio.load(content);
+// const printConsole = async (content) => {
+//   const $ = cheerio.load(content);
 
-  // // const Selector = '#box_1';
-  // console.log($);
-  // console.log($.data);
+//   // // const Selector = '#box_1';
+//   // console.log($);
+//   // console.log($.data);
 
-  var idioms = [];
-  var links = [];
-  var listItems = $('ul.idiKw li a');
-  console.log(typeof listItems);
-  // .each(function(i, elem) {
-  //     idioms.push($(elem).text());
-  //     links.push("https://thefreedictionary.com/" + $(elem).attr("href"));
-  // });
+//   var idioms = [];
+//   var links = [];
+//   var listItems = $('ul.idiKw li a');
+//   console.log(typeof listItems);
+//   // .each(function(i, elem) {
+//   //     idioms.push($(elem).text());
+//   //     links.push("https://thefreedictionary.com/" + $(elem).attr("href"));
+//   // });
 
-  // console.log(idioms);
-  // console.log(links);
-  // console.log(listItems);
-};
+//   // console.log(idioms);
+//   // console.log(links);
+//   // console.log(listItems);
+// };
 
-api.get('/data', async (ctx, next) => {
+api.get('/data', async (ctx) => {
   // ctx.body = 'GET ' + ctx.request.path;
   ctx.body = {
-    test: 'Asd',
+    test: 'test',
   };
 
   (async () => {
