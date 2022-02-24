@@ -1,30 +1,17 @@
-const Router = require('@koa/router');
-const puppeteer = require('puppeteer');
-const cheerio = require('cheerio');
+// const Router = require('@koa/router');
+import Router from '@koa/router';
+import posts from './posts';
+// import { Puppeteer } from 'puppeteer';
+// import { Cheerio } from 'cheerio';
+// const puppeteer = require('puppeteer');
+// const cheerio = require('cheerio');
+// const posts = require('./posts');
 
 const api = new Router();
 
-// const printConsole = async (content) => {
-//   const $ = cheerio.load(content);
+api.use('/posts', posts.routes());
 
-//   // // const Selector = '#box_1';
-//   // console.log($);
-//   // console.log($.data);
-
-//   var idioms = [];
-//   var links = [];
-//   var listItems = $('ul.idiKw li a');
-//   console.log(typeof listItems);
-//   // .each(function(i, elem) {
-//   //     idioms.push($(elem).text());
-//   //     links.push("https://thefreedictionary.com/" + $(elem).attr("href"));
-//   // });
-
-//   // console.log(idioms);
-//   // console.log(links);
-//   // console.log(listItems);
-// };
-
+// 크롤링 파트
 api.get('/data', async (ctx) => {
   // ctx.body = 'GET ' + ctx.request.path;
   ctx.body = {
@@ -78,17 +65,28 @@ api.get('/data', async (ctx) => {
   })();
 });
 
-module.exports = api;
+export default api;
 
-// https://www.statshow.com/
+// const printConsole = async (content) => {
+//   const $ = cheerio.load(content);
 
-// 0214
-// reference:  https://kb.objectrocket.com/mongo-db/how-to-create-a-web-scraper-with-mongoose-nodejs-axios-and-cheerio-part-2-221
-// 현재고민..
-// async await 이슈.. 에러 콘솔로그 해결.. 위의 코드를 참고했던 블로그 부터확인
-// $.(선택자) 로 받아와서 .each 사용인데 jQuery 를 꼭 사용해야하느지..
-// $이 잘 작동하는지도 의문..
+//   // // const Selector = '#box_1';
+//   // console.log($);
+//   // console.log($.data);
 
-// 0220
-// data에 원하는 데이터를 담는 것에 성공함 이 데이터들을 DB에 저장해서 가공해서 사용하면 좋을 듯.
-// 주소도 여러개를 사용할 수 있게 리팩토링 필요
+//   var idioms = [];
+//   var links = [];
+//   var listItems = $('ul.idiKw li a');
+//   console.log(typeof listItems);
+//   // .each(function(i, elem) {
+//   //     idioms.push($(elem).text());
+//   //     links.push("https://thefreedictionary.com/" + $(elem).attr("href"));
+//   // });
+
+//   // console.log(idioms);
+//   // console.log(links);
+//   // console.log(listItems);
+// };
+
+// module.exports = api;
+// export default api;
