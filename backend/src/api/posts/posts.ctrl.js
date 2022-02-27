@@ -1,4 +1,5 @@
 import Post from '../../models/posts';
+import crawling from './crawling';
 
 /*
   /api/posts
@@ -20,6 +21,16 @@ export const write = async (ctx) => {
   try {
     await post.save(); // db에 저장
     ctx.body = post;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const write2 = async (ctx) => {
+  const { url } = ctx.request.body;
+  try {
+    ctx.body = url;
+    crawling(url);
   } catch (e) {
     ctx.throw(500, e);
   }
