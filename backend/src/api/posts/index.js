@@ -5,5 +5,6 @@ const posts = new Router();
 
 posts.post('/', postCtrl.write);
 posts.post('/url', postCtrl.write2);
+posts.post('/url/visitor', postCtrl.write2);
 
 export default posts;

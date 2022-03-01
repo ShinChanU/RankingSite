@@ -1,5 +1,6 @@
 import Post from '../../models/posts';
 import crawling from './crawling';
+import saveResults from './saveResult';
 
 /*
   /api/posts
@@ -27,10 +28,23 @@ export const write = async (ctx) => {
 };
 
 export const write2 = async (ctx) => {
-  const { url } = ctx.request.body;
+  // crawling(ctx)
+  // .then(data => {
+  //   saveResults(data);
+  // }).catch(console.error);
+  // const data = require('./crawling');
+  // const post = new data();
+  const { name, url, visitorData, ranking } = ctx.request.body;
+  const post = new Post({
+    // Post 인스턴스 생성
+    name,
+    url,
+    visitorData,
+    ranking,
+  });
   try {
-    ctx.body = url;
-    crawling(url);
+    await post.save(); // db에 저장
+    ctx.body = post;
   } catch (e) {
     ctx.throw(500, e);
   }

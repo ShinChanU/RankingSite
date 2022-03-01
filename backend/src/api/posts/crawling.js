@@ -39,12 +39,12 @@ const crawling = async (url) => {
     }
   });
 
-  // return data;
-  console.log(data);
+  await browser.close();
+  // console.log(data);
+  return data;
 
   // const content = await page.content();
   // await printConsole(content);
-  // await browser.close();
 };
 
 module.exports = crawling;

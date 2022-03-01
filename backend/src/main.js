@@ -5,6 +5,8 @@ import Router from '@koa/router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 import api from './api';
+import crawling from './api/posts/crawling';
+import saveResults from './api/posts/saveResult';
 
 // eslint-disable-next-line no-undef
 const { PORT, MONGO_URI } = process.env;
@@ -26,6 +28,12 @@ mongoose
   .catch((e) => {
     console.log(e);
   });
+
+crawling('naver.com')
+  .then((dataObj) => {
+    saveResults(dataObj);
+  })
+  .catch(console.error);
 
 app.listen(PORT, () => {
   console.log(`listen to port ${PORT}, 서버 가동 중`);
@@ -52,3 +60,14 @@ app.listen(PORT, () => {
 // [주소 배열] 20개 정도, /api/posts/url/all 로 post 신호 전송시,
 // 주소배열 1부터, 크롤링함수를 실행해서 mongodb 컬렉션에 적재를 함(/api/posts/url)
 // 크롤링하는 시간이 있기 때문에, 신호를 보내고 완료가될때까지 기다리는건지,, 비동기식으로 처리를 할 수 있는지 고민..
+
+/*
+0301
+종이에 그림을 그려가면서 다시 해보자
+해야할것
+  웹서버를 열고 -> postman or 자동 or 웹페이지(event) 로 post api를 전송(이때 post에는 데이터를 스크랩할 웹사이트의 주소(url)만 담아서)
+  -> post 신호를 받으면 crawling 함수를 실행 (return 값은 daily, monthly, yearly ... 객체)
+  -> 위 함수가 끝나면 (.then()) mongoose model에 스키마형식에 맞추서 mongodb에 save
+  (여기에서 크롤링으로 얻은 data는 스키마에서 visitorDataSchema에 해당), name, url은 알고, ranking은 아직
+  -> 함수로 얻은 데이터를 visitorDataSchema에 넣고 webSiteSchema를 만들어야하는지.. 학교 수업 자료 참고해야할듯.
+*/
