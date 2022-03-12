@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
 const crawling = async (url) => {
+  console.log('crawling함수진입');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(`https://www.statshow.com/www/${url}/`);

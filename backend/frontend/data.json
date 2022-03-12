@@ -1,0 +1,9 @@
+{
+  "site": [
+    { "name": "네이버", "url": "naver.com" },
+    { "name": "다음", "url": "daum.net" },
+    { "name": "구글", "url": "google.co.kr" },
+    { "name": "넥슨", "url": "nexon.com" },
+    { "name": "카카오", "url": "kakaocorp.com" }
+  ]
+}

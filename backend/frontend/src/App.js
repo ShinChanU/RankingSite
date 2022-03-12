@@ -1,18 +1,8 @@
 import React from 'react';
-import axios from 'axios';
+import MainPage from './page/MainPage';
 
 function App() {
-  const onClick = () => {
-    axios.get('api/data').then((res) => {
-      console.log(res);
-    });
-  };
-
-  return (
-    <div>
-      <button onClick={onClick}>search</button>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;

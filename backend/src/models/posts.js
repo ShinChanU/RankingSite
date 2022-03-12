@@ -26,7 +26,7 @@ const rankingSchema = new Schema({
 const webSiteSchema = new Schema({
   name: String,
   url: String,
-  visitorData: [visitorDataSchema], // 하루에 한번 data 저장
+  visitorData: Object, // 하루에 한번 data 저장, 지금은 object하나로 저장
   ranking: rankingSchema,
 });
 
