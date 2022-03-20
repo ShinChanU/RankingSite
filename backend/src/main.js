@@ -16,7 +16,6 @@ const router = new Router();
 
 router.use('/api', api.routes());
 app.use(cors());
-
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 

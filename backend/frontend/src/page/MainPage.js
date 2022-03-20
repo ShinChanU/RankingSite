@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Linter } from 'eslint';
 
 const MainPage = () => {
   const [data, setData] = useState({
@@ -19,11 +18,11 @@ const MainPage = () => {
       });
   }, []);
 
-  const onChange = (e) => {
-    setData({
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const onChange = (e) => {
+  //   setData({
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   // const onClick = () => {
   //   const textBox = {
