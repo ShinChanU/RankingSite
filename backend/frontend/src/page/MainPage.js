@@ -5,18 +5,24 @@ const MainPage = () => {
   const [data, setData] = useState({
     text: '',
   });
-  const [site, setSite] = useState([]);
+  const [site, setSite] = useState([
+    { name: '네이버', url: 'naver.com' },
+    { name: '다음', url: 'daum.net' },
+    { name: '구글', url: 'google.co.kr' },
+    { name: '넥슨', url: 'nexon.com' },
+    { name: '카카오', url: 'kakaocorp.com' },
+  ]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/site')
-      .then((res) => {
-        setSite(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:4000/site')
+  //     .then((res) => {
+  //       setSite(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   // const onChange = (e) => {
   //   setData({
@@ -36,8 +42,9 @@ const MainPage = () => {
       .post('http://localhost:8080/api/data', {
         data: site,
       })
-      .then((e) => console.log(e))
-      .catch((e) => console.log(e));
+      .then((response) => console.log(response));
+    // .then((res) => console.log(res))
+    // .catch((e) => console.log(e));
   };
 
   return (

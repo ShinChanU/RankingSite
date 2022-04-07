@@ -25,13 +25,14 @@ app.use(router.routes()).use(router.allowedMethods());
 router.post('/api/data', async (ctx) => {
   ctx.body = 'Success';
   const { data } = ctx.request.body;
-  console.log(data);
-  data.map((e) => {
-    console.log(e.name, e.url);
-    crawling(e.url)
-      .then((dataObj) => saveResults(dataObj, e.name, e.url))
-      .catch((e) => console.log(e));
-  });
+  console.log('test');
+  // data.map((e) => {
+  //   console.log(e.name, e.url);
+  //   crawling(e.url)
+  //     .then((dataObj) => saveResults(dataObj, e.name, e.url))
+  //     .catch((e) => console.log(e));
+  // });
+  // ctx.body = 'test';
 });
 
 mongoose
