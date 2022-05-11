@@ -5,15 +5,21 @@ import Post from '../../models/posts';
 // 0312
 const saveResult = async (dataObj, name, url) => {
   console.log('saveResult함수진입');
-  Post.create(
-    {
-      name: name,
-      url: url,
-      visitorData: dataObj,
-    },
-    (err, data) => {
-      console.log(err, data);
-    },
+  // Post.create(
+  //   {
+  //     name: name,
+  //     url: url,
+  //     visitorData: dataObj,
+  //   },
+  //   (err, data) => {
+  //     console.log(err, data);
+  //   },
+  // );
+  await Post.findOne({}.exec());
+  console.log(
+    Post.findOne({ name: 'naver.com' }, (err, dt) => {
+      console.log(err, dt);
+    }),
   );
 };
 
